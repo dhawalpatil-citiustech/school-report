@@ -1,1 +1,18 @@
-<p>grade-piechart works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron">
+                <h1>Grade Pie Chart</h1>
+                <p>( Click on grade slice for more details. )</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8 text-center">
+            <h6>% of students passed in 2018-2019 session</h6>
+            <p-chart type="pie" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>

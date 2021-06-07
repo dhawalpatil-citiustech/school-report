@@ -1,1 +1,39 @@
-<p>grade-list works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary my-2" (click)="backClicked()">&lt; Back</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="3">{{this.getTableTitle()}}</th>
+                        <th scope="col" colspan="4">Marks: out of 100</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">English</th>
+                        <th scope="col">Maths</th>
+                        <th scope="col">Science</th>
+                        <th scope="col">Social Studies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of studentList">
+                        <td scope="col">{{student.studentName}}</td>
+                        <td scope="col">{{student.age}}</td>
+                        <td scope="col">{{student.email}}</td>
+                        <td scope="col">{{student.subject[0].marks}}</td>
+                        <td scope="col">{{student.subject[1].marks}}</td>
+                        <td scope="col">{{student.subject[2].marks}}</td>
+                        <td scope="col">{{student.subject[3].marks}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

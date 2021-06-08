@@ -7,7 +7,7 @@ import studentsList from '../../assets/json/students.json'
 })
 export class GradeService {
   selectedGrade: number;
-  studentList: Student[];
+  studentList: Student[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -74,7 +74,7 @@ export class GradeService {
         greadArr[0]++;
       } else if(total <= 360 && total > 320) {
         greadArr[1]++;
-      } else if(total <= 320) {
+      } else {
         greadArr[2]++;
       }
     });
@@ -82,7 +82,7 @@ export class GradeService {
   }
 
   /*
-   * Provides student list as per selected grade index
+   * Categorized student list in respective grades 1, 2, 3 according to there marks total
    */
   getStudentList(): Student[] {
     return this.studentList.filter((student) => {
@@ -90,11 +90,11 @@ export class GradeService {
       student.subject.forEach((subject)=>{
         total += subject.marks;
       });
-      if(this.getGradeIndex() === 0 && total > 360){
+      if(this.getGradeIndex() === 0 && (total > 360)){
         return student;
       } else if(this.getGradeIndex() === 1 && (total <= 360 && total > 320)) {
         return student;
-      } else if(this.getGradeIndex() === 2 && total <= 320) {
+      } else {
         return student;
       }
     });

@@ -15,21 +15,17 @@ export class GradeListComponent implements OnInit {
 
   constructor(
     private gradeService: GradeService,
-    private _location: Location) { }
+    public _location: Location) { }
 
   ngOnInit(): void {
     this.studentList = this.gradeService.getStudentList();
-  }
-
-  backClicked() {
-    this._location.back();
   }
 
   getTableTitle() {
     return `${this.grading[this.gradeService.getGradeIndex()]} Grade Students`;
   }
 
-  checkValidation(e, type, object) {
+  checkValidation(type, object) {
     object['error']?'':object['error']={};
     if(type === 'age') {
       if(object.age < 8 || object.age > 18) {
@@ -44,14 +40,12 @@ export class GradeListComponent implements OnInit {
       } else {
         object['error']['email'] = null;
       }
+    } if(type === 'marks' && object.marks > 100) {
+      object['error'] = 'Exceeds marks';
+    } else if(type === 'marks' && object.marks < 0) {
+      object['error'] = 'Nagative marks';
     } else if(type === 'marks') {
-      if(object.marks > 100) {
-        object['error'] = 'Exceeds marks';
-      } else if(object.marks < 0) {
-        object['error'] = 'Nagative marks';
-      } else {
-        object['error'] = null;
-      }
+      object['error'] = null;
     }
   }
 

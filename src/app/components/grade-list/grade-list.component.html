@@ -1,39 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-primary my-2" (click)="backClicked()">&lt; Back</button>
+            <button type="button" class="btn btn-primary my-2" (click)="_location.back()">&lt; Back</button>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <!-- <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col" colspan="3">{{this.getTableTitle()}}</th>
-                        <th scope="col" colspan="4">Marks: out of 100</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">E-Mail</th>
-                        <th scope="col">English</th>
-                        <th scope="col">Maths</th>
-                        <th scope="col">Science</th>
-                        <th scope="col">Social Studies</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let student of studentList">
-                        <td scope="col">{{student.studentName}}</td>
-                        <td scope="col">{{student.age}}</td>
-                        <td scope="col">{{student.email}}</td>
-                        <td scope="col">{{student.subject[0].marks}}</td>
-                        <td scope="col">{{student.subject[1].marks}}</td>
-                        <td scope="col">{{student.subject[2].marks}}</td>
-                        <td scope="col">{{student.subject[3].marks}}</td>
-                    </tr>
-                </tbody>
-            </table> -->
             <p-table [value]="studentList" dataKey="studentId">
                 <ng-template pTemplate="header">
                     <tr>
@@ -65,7 +37,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number" class="w-100" (blur)="checkValidation($event, 'age', student)" [(ngModel)]="student.age" required>
+                                    <input pInputText type="number" class="w-100" (blur)="checkValidation('age', student)" [(ngModel)]="student.age" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.age}}</div>
@@ -78,7 +50,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="email" class="w-100" (blur)="checkValidation($event, 'email', student)" [(ngModel)]="student.email" required>
+                                    <input pInputText type="email" class="w-100" (blur)="checkValidation('email', student)" [(ngModel)]="student.email" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.email}}</div>
@@ -91,7 +63,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number" class="w-100" (blur)="checkValidation($event, 'marks', student.subject[0])" [(ngModel)]="student.subject[0].marks" required>
+                                    <input pInputText type="number" class="w-100" (blur)="checkValidation('marks', student.subject[0])" [(ngModel)]="student.subject[0].marks" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.subject[0].marks}}</div>
@@ -104,7 +76,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number" class="w-100" (blur)="checkValidation($event, 'marks', student.subject[1])" [(ngModel)]="student.subject[1].marks" required>
+                                    <input pInputText type="number" class="w-100" (blur)="checkValidation('marks', student.subject[1])" [(ngModel)]="student.subject[1].marks" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.subject[1].marks}}</div>
@@ -117,7 +89,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number" class="w-100" (blur)="checkValidation($event, 'marks', student.subject[2])" [(ngModel)]="student.subject[2].marks" required>
+                                    <input pInputText type="number" class="w-100" (blur)="checkValidation('marks', student.subject[2])" [(ngModel)]="student.subject[2].marks" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.subject[2].marks}}</div>
@@ -130,7 +102,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number" class="w-100" (blur)="checkValidation($event, 'marks', student.subject[3])" [(ngModel)]="student.subject[3].marks" required>
+                                    <input pInputText type="number" class="w-100" (blur)="checkValidation('marks', student.subject[3])" [(ngModel)]="student.subject[3].marks" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <div>{{student.subject[3].marks}}</div>

@@ -17,7 +17,9 @@ export class GradePiechartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gradeData = this.gradeService.getGrades();
+    this.gradeService.getStudents().then(data => {
+      this.gradeData = this.gradeService.getGrades(data);
+    });
   }
 
   selectData(e: any) {

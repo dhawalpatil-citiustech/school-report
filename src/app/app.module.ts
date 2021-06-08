@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'primeng/chart';
+import { TableModule } from 'primeng/table';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +19,10 @@ import { GradeListComponent } from './components/grade-list/grade-list.component
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartModule
+    ChartModule,
+    TableModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

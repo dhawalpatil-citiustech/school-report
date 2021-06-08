@@ -29,4 +29,30 @@ export class GradeListComponent implements OnInit {
     return `${this.grading[this.gradeService.getGradeIndex()]} Grade Students`;
   }
 
+  checkValidation(e, type, object) {
+    object['error']?'':object['error']={};
+    if(type === 'age') {
+      if(object.age < 8 || object.age > 18) {
+        object['error']['age'] = 'Between 8 to 18';
+      } else {
+        object['error']['age'] = null;
+      }
+    } else if(type === 'email') {
+      const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(!re.test(object.email)) {
+        object['error']['email'] = 'Invalid Email';
+      } else {
+        object['error']['email'] = null;
+      }
+    } else if(type === 'marks') {
+      if(object.marks > 100) {
+        object['error'] = 'Exceeds marks';
+      } else if(object.marks < 0) {
+        object['error'] = 'Nagative marks';
+      } else {
+        object['error'] = null;
+      }
+    }
+  }
+
 }

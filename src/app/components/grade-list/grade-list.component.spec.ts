@@ -49,7 +49,7 @@ describe('GradeListComponent', () => {
       "age": 3
     };
     component.checkValidation('age', object);
-    expect(object['error']['age']).toString();
+    expect(object['error']['age']).toBe('Between 8 to 18');
   });
 
   it('Validation email is in correct pattern', () => {
@@ -64,12 +64,12 @@ describe('GradeListComponent', () => {
   it('Validation email is in incorrect pattern', () => {
     const object = {
       "studentId": "1",
-      "age": 'john'
+      "email": 'john'
     };
     component.checkValidation('email', object);
-    expect(object['error']['email']).toString();
+    expect(object['error']['email']).toBe('Invalid Email');
     component.checkValidation('email', object);
-    expect(object['error']['email']).toString();
+    expect(object['error']['email']).toBe('Invalid Email');
   });
 
   it('Validation marks should be in range 0 to 100', () => {
@@ -95,11 +95,12 @@ describe('GradeListComponent', () => {
       ]
     };
     component.checkValidation('marks', object.subject[0]);
-    expect(object['subject'][0]['error']).toString();
+    expect(object['subject'][0]['error']).toBe('Nagative marks');
   });
 
   it('Validation marks should not above 100', () => {
     const object = {
+      "email": 'john@gmail.com',
       "subject": [
         {
           "name": "English",
@@ -108,6 +109,6 @@ describe('GradeListComponent', () => {
       ]
     };
     component.checkValidation('marks', object.subject[0]);
-    expect(object['subject'][0]['error']).toString();
+    expect(object['subject'][0]['error']).toBe('Exceeds marks');
   });
 });

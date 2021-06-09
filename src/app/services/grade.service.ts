@@ -14,7 +14,7 @@ export class GradeService {
   /*
    * API call to get student list
    */
-  getStudents() {
+  getStudents(): Promise<Student[]> {
     return this.http.get<any>('assets/json/students.json')
     .toPromise()
     .then(res => <Student[]>res)
@@ -32,7 +32,7 @@ export class GradeService {
    * Gettor method to get selected grade index
    */
   getGradeIndex() {
-   return  this.selectedGrade;
+   return this.selectedGrade;
   }
 
   /*
@@ -94,7 +94,7 @@ export class GradeService {
         return student;
       } else if(this.getGradeIndex() === 1 && (total <= 360 && total > 320)) {
         return student;
-      } else {
+      } else if(this.getGradeIndex() === 2 && (total <= 320)) {
         return student;
       }
     });

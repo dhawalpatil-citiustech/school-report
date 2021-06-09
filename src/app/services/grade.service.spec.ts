@@ -1,10 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { GradeService } from './grade.service';
+import { Student } from '../interfaces/student';
 
 describe('GradeService', () => {
   let service: GradeService;
+  let gradeService;
+  let httpTestingController: HttpTestingController;
+  let student: Student;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +16,40 @@ describe('GradeService', () => {
       providers: [GradeService]
     });
     service = TestBed.inject(GradeService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    student = {
+      "studentId": "1",
+      "studentName": "Alice",
+      "age": 12,
+      "email": "Alice@gmail.com",
+      "subject": [
+        {
+          "name": "English",
+          "marks": 92
+        },
+        {
+          "name": "Maths",
+          "marks": 85
+        },
+        {
+          "name": "Science",
+          "marks": 90
+        },
+        {
+          "name": "Social Studies",
+          "marks": 82
+        }
+      ]
+    }
+
   });
+
+  beforeEach(inject(
+    [GradeService],
+    (service: GradeService) => {
+      gradeService = service;
+    }
+  ));
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -174,6 +211,29 @@ describe('GradeService', () => {
       "subject": [
         {
           "name": "English",
+          "marks": 85
+        },
+        {
+          "name": "Maths",
+          "marks": 85
+        },
+        {
+          "name": "Science",
+          "marks": 85
+        },
+        {
+          "name": "Social Studies",
+          "marks": 85
+        }
+      ]
+    }, {
+      "studentId": "12",
+      "studentName": "Alice",
+      "age": 12,
+      "email": "Alice@gmail.com",
+      "subject": [
+        {
+          "name": "English",
           "marks": 75
         },
         {
@@ -192,5 +252,20 @@ describe('GradeService', () => {
     }];
     service.setGradeIndex(2);
     expect(service.getStudentList()[0].studentId).toBe('12');
+  });
+
+  it('returned Promises should match the right data', () => {
+    let result: Student[];
+    gradeService.getStudents().then(t => {
+      result = t;
+      expect(result[0]).toEqual(student);
+    });
+
+    const req = httpTestingController.expectOne({
+      method: "GET",
+      url: 'assets/json/students.json'
+    });
+
+    req.flush([student]);
   });
 });

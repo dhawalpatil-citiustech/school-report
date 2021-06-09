@@ -2,6 +2,10 @@
     <div class="row">
         <div class="col">
             <button type="button" class="btn btn-primary my-2" (click)="_location.back()">&lt; Back</button>
+            <div class="jumbotron">
+                <h1>Student List</h1>
+                <p>( Click on field to edit information. )</p>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -9,7 +13,7 @@
             <p-table [value]="studentList" dataKey="studentId">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th scope="col" colspan="3">{{this.getTableTitle()}}</th>
+                        <th scope="col" colspan="3" class="tableHeader">{{getTableTitle()}}</th>
                         <th scope="col" colspan="4">Marks: out of 100</th>
                     </tr>
                     <tr>
@@ -25,12 +29,12 @@
                 <ng-template pTemplate="body" let-student>
                     <tr>
                         <td pEditableColumn>
-                            <p-cellEditor>
+                            <p-cellEditor class="name_{{student.studentId}}">
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" class="w-100" [(ngModel)]="student.studentName" required>
+                                    <input pInputText type="text" class="w-100 name_{{student.studentId}}_input" [(ngModel)]="student.studentName" required>
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    <div>{{student.studentName}}</div>
+                                    <div class="name_{{student.studentId}}_text">{{student.studentName}}</div>
                                 </ng-template>
                             </p-cellEditor>
                         </td>

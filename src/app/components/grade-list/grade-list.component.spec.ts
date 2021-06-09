@@ -1,14 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TableModule } from 'primeng/table';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { GradeService } from '../../services/grade.service';
 import { GradeListComponent } from './grade-list.component';
+import { Student } from '../../interfaces/student';
 
 describe('GradeListComponent', () => {
   let component: GradeListComponent;
   let fixture: ComponentFixture<GradeListComponent>;
+  let gradeService;
+  let student: Student[];
   let router = {
     navigate: jasmine.createSpy('navigate')
   }
@@ -26,12 +29,56 @@ describe('GradeListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GradeListComponent);
     component = fixture.componentInstance;
+    gradeService = TestBed.inject(GradeService);
     location = TestBed.inject(Location);
     fixture.detectChanges();
+
+    student = [{
+      "studentId": "1",
+      "studentName": "Alice",
+      "age": 12,
+      "email": "Alice@gmail.com",
+      "subject": [
+        {
+          "name": "English",
+          "marks": 92
+        },
+        {
+          "name": "Maths",
+          "marks": 94
+        },
+        {
+          "name": "Science",
+          "marks": 90
+        },
+        {
+          "name": "Social Studies",
+          "marks": 90
+        }
+      ]
+    }]
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Should call get student API if student list not available', fakeAsync(() => {
+    gradeService.studentList = [];
+
+    spyOn(gradeService, 'getStudents').and.returnValue(Promise.resolve(student));
+    tick();
+    component.ngOnInit();
+    gradeService.getStudents().then(studentList=>{
+      expect(studentList).toBeTruthy();
+      expect(component.studentList).toEqual(student);
+    })
+  }));
+
+  it('Should not call get student API if student list available', () => {
+    gradeService.studentList = student;
+    component.ngOnInit();
+    expect(component.studentList).toEqual(student);
   });
 
   it('Validation age is within range 8 to 18', () => {
@@ -68,6 +115,8 @@ describe('GradeListComponent', () => {
     };
     component.checkValidation('email', object);
     expect(object['error']['email']).toBe('Invalid Email');
+
+    // Repeat call to check error property is created or not
     component.checkValidation('email', object);
     expect(object['error']['email']).toBe('Invalid Email');
   });

@@ -6,7 +6,7 @@ import studentsList from '../../assets/json/students.json'
   providedIn: 'root'
 })
 export class GradeService {
-  selectedGrade: number;
+  selectedGrade: number = 0;
   studentList: Student[] = [];
 
   constructor(private http: HttpClient) { }

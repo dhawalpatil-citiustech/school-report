@@ -18,7 +18,17 @@ export class GradeListComponent implements OnInit {
     public _location: Location) { }
 
   ngOnInit(): void {
-    this.studentList = this.gradeService.getStudentList();
+    // If student list is empty call student fetch API to get student list
+    if(this.gradeService.studentList.length === 0) {
+      this.gradeService.getStudents().then((studentList)=>{
+
+        // Storing student list in service for future use
+        this.gradeService.studentList = studentList;
+        this.studentList = this.gradeService.getStudentList();
+      })
+    } else {
+      this.studentList = this.gradeService.getStudentList();
+    }
   }
 
   getTableTitle() {

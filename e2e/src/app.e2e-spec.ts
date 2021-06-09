@@ -1,4 +1,4 @@
-import { browser, logging } from 'protractor';
+import { browser, logging, by, element, protractor } from 'protractor';
 import { AppPage } from './app.po';
 
 describe('workspace-project App', () => {
@@ -8,10 +8,33 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('should display Pie Chart welcome message', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('school-report app is running!');
+    expect(await page.getTitleText()).toEqual('Grade Pie Chart');
   });
+
+  it('should display Student List welcome message', async () => {
+    await page.navigateToList();
+    expect(await page.getTitleText()).toEqual('Student List');
+  });
+
+  it('should display table head text as per table data', async () => {
+    await page.navigateToList();
+    expect(await page.getTableHeaderText()).toEqual('First Grade Students');
+  });
+
+  it('should display Student List welcome message', async () => {
+    await page.navigateToList();
+    expect(await page.getTableHeaderText()).toEqual('First Grade Students');
+  });
+
+  // TODO
+  // it('should edit name of student', async () => {
+  //   await page.navigateToList();
+  //   element(by.css('p-celleditor.name_2')).click();
+  //   browser.waitForAngular();
+  //   expect(await element(by.css('p-celleditor .name_2_input')).getAttribute('value')).toEqual('Brandon');
+  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

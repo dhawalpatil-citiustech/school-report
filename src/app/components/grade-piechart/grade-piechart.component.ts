@@ -26,5 +26,4 @@ export class GradePiechartComponent implements OnInit {
     this.gradeService.setGradeIndex(e.element._index);
     this.router.navigate(['list']);
   }
-
 }
